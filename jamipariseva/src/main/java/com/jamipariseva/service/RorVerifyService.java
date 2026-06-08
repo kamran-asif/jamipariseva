@@ -10,6 +10,11 @@ import com.jamipariseva.mapper.KhatianMapper;
 import com.jamipariseva.repository.KhatianRepository;
 import com.jamipariseva.repository.RorRecordRepository;
 import java.util.Optional;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.UUID;
+import java.time.LocalDateTime;
+import com.jamipariseva.dto.request.EsignFrsKhatianRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -69,5 +74,21 @@ public class RorVerifyService {
                 .findByLgdVillageCodeAndKhatianNo(ror.getLgdVillageCode(), ror.getKhatianNo())
                 .map(khatianMapper::toDto)
                 .orElseGet(() -> khatianMapper.fromRorRecord(ror));
+    }
+
+    public Map<String, Object> esignFrsKhatian(EsignFrsKhatianRequest request) {
+        // Verify that the khatian record exists in our database
+        khatianRepository.findByLgdVillageCodeAndKhatianNo(request.getLgdVillageCode(), request.getKhatianNo())
+                .orElseThrow(() -> new ResourceNotFoundException("Khatian record not found"));
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("khatian_no", request.getKhatianNo());
+        response.put("lgd_village_code", request.getLgdVillageCode());
+        response.put("lgd_district_code", request.getLgdDistrictCode());
+        response.put("status", "SUCCESS");
+        response.put("message", "First revision surveyed khatian signed successfully");
+        response.put("esign_transaction_id", "TXN-ESG-" + UUID.randomUUID().toString().replace("-", "").substring(0, 10).toUpperCase());
+        response.put("signed_at", LocalDateTime.now().toString());
+        return response;
     }
 }

@@ -31,3 +31,6 @@ INSERT INTO khatian_record (
   1002, CURRENT_TIMESTAMP, '127.0.0.1', 1003, CURRENT_TIMESTAMP, '127.0.0.1',
   CURRENT_TIMESTAMP, 1001, '127.0.0.1', 11, 1, 'N'
 );
+
+INSERT INTO service_request (request_id, citizen_id, role_id, service_id, status, request_payload, pdf_url, acknowledgement_no, created_at, updated_at) VALUES
+('REQ85FD94D6CA5F', '2823', '6', '10', 'success', '{}', 'http://example.com/test.pdf', 'ACK-REQ85FD94D6CA5F', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);

@@ -32,7 +32,6 @@ public class ServiceRequestEntity {
     @Column(name = "status")
     private String status;
 
-    @Lob
     @Column(name = "request_payload", columnDefinition = "TEXT")
     private String requestPayload;
 

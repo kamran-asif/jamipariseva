@@ -16,6 +16,7 @@ public class ApiResponse<T> {
     private boolean success;
     private String message;
     private T data;
+    private java.util.Map<String, String> httpCodes;
 
     public static <T> ApiResponse<T> ok(T data) {
         return ApiResponse.<T>builder().success(true).message("OK").data(data).build();
@@ -27,5 +28,9 @@ public class ApiResponse<T> {
 
     public static <T> ApiResponse<T> fail(String message) {
         return ApiResponse.<T>builder().success(false).message(message).build();
+    }
+
+    public static <T> ApiResponse<T> fail(String message, java.util.Map<String, String> httpCodes) {
+        return ApiResponse.<T>builder().success(false).message(message).httpCodes(httpCodes).build();
     }
 }

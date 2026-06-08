@@ -1,10 +1,11 @@
 package com.jamipariseva.controller;
 
-import com.jamipariseva.common.ApiResponse;
 import com.jamipariseva.dto.location.LocationItemDto;
 import com.jamipariseva.dto.location.LocationRequest;
 import com.jamipariseva.service.LocationService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.List;
@@ -26,8 +27,14 @@ public class LocationController {
             request_for values: district, subdivision, circle, tehsil, village, mouja.
             Parent code required per level: lgd_dist_code, lgd_subdiv_code, lgd_circle_code, lgd_tehsil_code.
             """)
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Request succeeded"),
+        @ApiResponse(responseCode = "400", description = "Invalid request/body format"),
+        @ApiResponse(responseCode = "422", description = "Validation failed"),
+        @ApiResponse(responseCode = "500", description = "Generic server error")
+    })
     @PostMapping("/location")
-    public ApiResponse<List<LocationItemDto>> getLocations(@Valid @RequestBody LocationRequest request) {
-        return ApiResponse.ok(locationService.fetchLocations(request));
+    public com.jamipariseva.common.ApiResponse<List<LocationItemDto>> getLocations(@Valid @RequestBody LocationRequest request) {
+        return com.jamipariseva.common.ApiResponse.ok(locationService.fetchLocations(request));
     }
 }

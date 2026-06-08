@@ -15,13 +15,18 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import com.jamipariseva.mapper.LocationMapper;
 
 @ExtendWith(MockitoExtension.class)
 class LocationServiceTest {
 
     @Mock
     private RevenueLocationRepository locationRepository;
+
+    @Spy
+    private LocationMapper locationMapper = new LocationMapper();
 
     @InjectMocks
     private LocationService locationService;
