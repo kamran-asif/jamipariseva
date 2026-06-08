@@ -15,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name = "Service Request", description = "Endpoints for applying, querying, and managing service requests")
@@ -74,17 +73,5 @@ public class ServiceRequestController {
     public com.jamipariseva.common.ApiResponse<Map<String, Object>> getDownloadUrl(@Valid @RequestBody DownloadRequest request) {
         return com.jamipariseva.common.ApiResponse.ok(serviceRequestService.getDownloadUrl(
                 request.getServiceId(), request.getCitizenId(), request.getRoleId(), request.getRequestId()));
-    }
-
-    @Operation(summary = "Mark a request as successful (Testing / Admin Flow)")
-    @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Request succeeded"),
-        @ApiResponse(responseCode = "400", description = "Invalid request format"),
-        @ApiResponse(responseCode = "404", description = "Request not found"),
-        @ApiResponse(responseCode = "500", description = "Generic server error")
-    })
-    @PostMapping("/request/mark-success")
-    public com.jamipariseva.common.ApiResponse<?> markSuccess(@RequestParam String requestId, @RequestParam String pdfUrl) {
-        return com.jamipariseva.common.ApiResponse.ok(serviceRequestService.markSuccess(requestId, pdfUrl));
     }
 }

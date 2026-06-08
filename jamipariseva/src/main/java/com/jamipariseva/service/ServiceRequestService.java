@@ -104,17 +104,7 @@ public class ServiceRequestService {
         return result;
     }
 
-    /** Marks a request as success and sets PDF URL — for testing / admin flow. */
-    public Map<String, Object> markSuccess(String requestId, String pdfUrl) {
-        ServiceRequestEntity entity = serviceRequestRepository
-                .findById(requestId)
-                .orElseThrow(() -> new ResourceNotFoundException("Request not found"));
-        entity.setStatus(STATUS_SUCCESS);
-        entity.setPdfUrl(pdfUrl);
-        entity.setUpdatedAt(LocalDateTime.now());
-        serviceRequestRepository.save(entity);
-        return toDetailMap(entity);
-    }
+
 
     private ServiceRequestEntity findRequest(String citizenId, String roleId, String requestId) {
         return serviceRequestRepository

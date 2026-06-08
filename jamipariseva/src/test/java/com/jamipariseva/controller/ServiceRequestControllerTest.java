@@ -114,20 +114,6 @@ class ServiceRequestControllerTest {
     }
 
     @Test
-    void markSuccess_returnsSuccess() throws Exception {
-        when(serviceRequestService.markSuccess(eq("REQ123"), eq("http://example.com/pdf"))).thenReturn(
-                Map.of("request_id", "REQ123", "status", "success", "pdf_url", "http://example.com/pdf"));
-
-        mockMvc.perform(post("/api/request/mark-success")
-                        .param("requestId", "REQ123")
-                        .param("pdfUrl", "http://example.com/pdf"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.success").value(true))
-                .andExpect(jsonPath("$.data.request_id").value("REQ123"))
-                .andExpect(jsonPath("$.data.status").value("success"));
-    }
-
-    @Test
     void malformedJson_returnsBadRequestWithHttpCodes() throws Exception {
         mockMvc.perform(post("/api/request")
                         .contentType(MediaType.APPLICATION_JSON)
