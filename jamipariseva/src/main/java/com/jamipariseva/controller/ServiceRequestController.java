@@ -31,9 +31,32 @@ public class ServiceRequestController {
     @Operation(summary = "Apply for a service request")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Resource created successfully"),
-            @ApiResponse(responseCode = "400", description = "Invalid request/body format", content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.jamipariseva.common.ApiResponse.class), examples = @ExampleObject(value = "{\n  \"success\": false,\n  \"message\": \"Invalid or inactive service_id: 99\",\n  \"httpCodes\": {\n    \"400 Bad Request\": \"Invalid request/body format\",\n    \"500 Internal Server Error\": \"Generic server error\"\n  }\n}"))),
-            @ApiResponse(responseCode = "422", description = "Validation failed", content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.jamipariseva.common.ApiResponse.class), examples = @ExampleObject(value = "{\n  \"success\": false,\n  \"message\": \"citizen_id: must not be blank\",\n  \"httpCodes\": {\n    \"400 Bad Request\": \"Invalid request/body format\",\n    \"500 Internal Server Error\": \"Generic server error\"\n  }\n}"))),
-            @ApiResponse(responseCode = "500", description = "Generic server error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.jamipariseva.common.ApiResponse.class), examples = @ExampleObject(value = "{\n  \"success\": false,\n  \"message\": \"Internal server error. Please try again later.\"\n}")))
+            @ApiResponse(responseCode = "400", description = "Invalid request/body format", content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.jamipariseva.common.ApiResponse.class), examples = @ExampleObject(value = """
+                    {
+                      "success": false,
+                      "message": "Invalid or inactive service_id: 99",
+                      "httpCodes": {
+                        "400 Bad Request": "Invalid request/body format",
+                        "500 Internal Server Error": "Generic server error"
+                      }
+                    }
+                    """))),
+            @ApiResponse(responseCode = "422", description = "Validation failed", content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.jamipariseva.common.ApiResponse.class), examples = @ExampleObject(value = """
+                    {
+                      "success": false,
+                      "message": "citizen_id: must not be blank",
+                      "httpCodes": {
+                        "400 Bad Request": "Invalid request/body format",
+                        "500 Internal Server Error": "Generic server error"
+                      }
+                    }
+                    """))),
+            @ApiResponse(responseCode = "500", description = "Generic server error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.jamipariseva.common.ApiResponse.class), examples = @ExampleObject(value = """
+                    {
+                      "success": false,
+                      "message": "Internal server error. Please try again later."
+                    }
+                    """)))
     })
     @PostMapping("/apply/servicerequest")
     public com.jamipariseva.common.ApiResponse<Map<String, Object>> apply(
@@ -44,9 +67,28 @@ public class ServiceRequestController {
     @Operation(summary = "Get request status or list")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Request succeeded"),
-            @ApiResponse(responseCode = "400", description = "Invalid request/body format", content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.jamipariseva.common.ApiResponse.class), examples = @ExampleObject(value = "{\n  \"success\": false,\n  \"message\": \"request_for must be pending or success\",\n  \"httpCodes\": {\n    \"400 Bad Request\": \"Invalid request/body format\",\n    \"500 Internal Server Error\": \"Generic server error\"\n  }\n}"))),
-            @ApiResponse(responseCode = "404", description = "Request not found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.jamipariseva.common.ApiResponse.class), examples = @ExampleObject(value = "{\n  \"success\": false,\n  \"message\": \"Request not found\"\n}"))),
-            @ApiResponse(responseCode = "500", description = "Generic server error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.jamipariseva.common.ApiResponse.class), examples = @ExampleObject(value = "{\n  \"success\": false,\n  \"message\": \"Internal server error. Please try again later.\"\n}")))
+            @ApiResponse(responseCode = "400", description = "Invalid request/body format", content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.jamipariseva.common.ApiResponse.class), examples = @ExampleObject(value = """
+                    {
+                      "success": false,
+                      "message": "request_for must be pending or success",
+                      "httpCodes": {
+                        "400 Bad Request": "Invalid request/body format",
+                        "500 Internal Server Error": "Generic server error"
+                      }
+                    }
+                    """))),
+            @ApiResponse(responseCode = "404", description = "Request not found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.jamipariseva.common.ApiResponse.class), examples = @ExampleObject(value = """
+                    {
+                      "success": false,
+                      "message": "Request not found"
+                    }
+                    """))),
+            @ApiResponse(responseCode = "500", description = "Generic server error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.jamipariseva.common.ApiResponse.class), examples = @ExampleObject(value = """
+                    {
+                      "success": false,
+                      "message": "Internal server error. Please try again later."
+                    }
+                    """)))
     })
     @PostMapping("/request")
     public com.jamipariseva.common.ApiResponse<?> getRequests(@Valid @RequestBody RequestStatusRequest request) {
@@ -56,9 +98,28 @@ public class ServiceRequestController {
     @Operation(summary = "Get request acknowledgement details")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Request succeeded"),
-            @ApiResponse(responseCode = "400", description = "Invalid request/body format", content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.jamipariseva.common.ApiResponse.class), examples = @ExampleObject(value = "{\n  \"success\": false,\n  \"message\": \"Malformed JSON or invalid request format\",\n  \"httpCodes\": {\n    \"400 Bad Request\": \"Invalid request/body format\",\n    \"500 Internal Server Error\": \"Generic server error\"\n  }\n}"))),
-            @ApiResponse(responseCode = "404", description = "Request not found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.jamipariseva.common.ApiResponse.class), examples = @ExampleObject(value = "{\n  \"success\": false,\n  \"message\": \"Request not found\"\n}"))),
-            @ApiResponse(responseCode = "500", description = "Generic server error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.jamipariseva.common.ApiResponse.class), examples = @ExampleObject(value = "{\n  \"success\": false,\n  \"message\": \"Internal server error. Please try again later.\"\n}")))
+            @ApiResponse(responseCode = "400", description = "Invalid request/body format", content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.jamipariseva.common.ApiResponse.class), examples = @ExampleObject(value = """
+                    {
+                      "success": false,
+                      "message": "Malformed JSON or invalid request format",
+                      "httpCodes": {
+                        "400 Bad Request": "Invalid request/body format",
+                        "500 Internal Server Error": "Generic server error"
+                      }
+                    }
+                    """))),
+            @ApiResponse(responseCode = "404", description = "Request not found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.jamipariseva.common.ApiResponse.class), examples = @ExampleObject(value = """
+                    {
+                      "success": false,
+                      "message": "Request not found"
+                    }
+                    """))),
+            @ApiResponse(responseCode = "500", description = "Generic server error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.jamipariseva.common.ApiResponse.class), examples = @ExampleObject(value = """
+                    {
+                      "success": false,
+                      "message": "Internal server error. Please try again later."
+                    }
+                    """)))
     })
     @PostMapping("/acknowledgement")
     public com.jamipariseva.common.ApiResponse<Map<String, Object>> getAcknowledgement(
@@ -70,9 +131,28 @@ public class ServiceRequestController {
     @Operation(summary = "Get PDF download URL for a request")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Request succeeded"),
-            @ApiResponse(responseCode = "400", description = "Invalid request/body format", content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.jamipariseva.common.ApiResponse.class), examples = @ExampleObject(value = "{\n  \"success\": false,\n  \"message\": \"service_id does not match the request\",\n  \"httpCodes\": {\n    \"400 Bad Request\": \"Invalid request/body format\",\n    \"500 Internal Server Error\": \"Generic server error\"\n  }\n}"))),
-            @ApiResponse(responseCode = "404", description = "Request not found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.jamipariseva.common.ApiResponse.class), examples = @ExampleObject(value = "{\n  \"success\": false,\n  \"message\": \"Request not found\"\n}"))),
-            @ApiResponse(responseCode = "500", description = "Generic server error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.jamipariseva.common.ApiResponse.class), examples = @ExampleObject(value = "{\n  \"success\": false,\n  \"message\": \"Internal server error. Please try again later.\"\n}")))
+            @ApiResponse(responseCode = "400", description = "Invalid request/body format", content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.jamipariseva.common.ApiResponse.class), examples = @ExampleObject(value = """
+                    {
+                      "success": false,
+                      "message": "service_id does not match the request",
+                      "httpCodes": {
+                        "400 Bad Request": "Invalid request/body format",
+                        "500 Internal Server Error": "Generic server error"
+                      }
+                    }
+                    """))),
+            @ApiResponse(responseCode = "404", description = "Request not found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.jamipariseva.common.ApiResponse.class), examples = @ExampleObject(value = """
+                    {
+                      "success": false,
+                      "message": "Request not found"
+                    }
+                    """))),
+            @ApiResponse(responseCode = "500", description = "Generic server error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.jamipariseva.common.ApiResponse.class), examples = @ExampleObject(value = """
+                    {
+                      "success": false,
+                      "message": "Internal server error. Please try again later."
+                    }
+                    """)))
     })
     @PostMapping("/download")
     public com.jamipariseva.common.ApiResponse<Map<String, Object>> getDownloadUrl(
