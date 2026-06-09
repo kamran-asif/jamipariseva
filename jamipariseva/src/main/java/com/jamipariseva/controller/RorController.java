@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,7 +56,7 @@ public class RorController {
                     """)))
     })
     @PostMapping("/ror/verify")
-    public com.jamipariseva.common.ApiResponse<?> verifyRor(@Valid @RequestBody RorVerifyRequest request) {
-        return com.jamipariseva.common.ApiResponse.ok(rorVerifyService.verify(request));
+    public ResponseEntity<?> verifyRor(@Valid @RequestBody RorVerifyRequest request) {
+        return ResponseEntity.ok(com.jamipariseva.common.ApiResponse.ok(rorVerifyService.verify(request)));
     }
 }

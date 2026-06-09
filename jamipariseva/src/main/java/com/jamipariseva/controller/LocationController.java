@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,8 +61,8 @@ public class LocationController {
                     """)))
     })
     @PostMapping("/location")
-    public com.jamipariseva.common.ApiResponse<List<LocationItemDto>> getLocations(
+    public ResponseEntity<?> getLocations(
             @Valid @RequestBody LocationRequest request) {
-        return com.jamipariseva.common.ApiResponse.ok(locationService.fetchLocations(request));
+        return ResponseEntity.ok(com.jamipariseva.common.ApiResponse.ok(locationService.fetchLocations(request)));
     }
 }

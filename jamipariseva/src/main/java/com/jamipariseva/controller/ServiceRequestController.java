@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,9 +60,9 @@ public class ServiceRequestController {
                     """)))
     })
     @PostMapping("/apply/servicerequest")
-    public com.jamipariseva.common.ApiResponse<Map<String, Object>> apply(
+    public ResponseEntity<?> apply(
             @Valid @RequestBody ApplyServiceRequestDto request) {
-        return com.jamipariseva.common.ApiResponse.ok("Service request saved", serviceRequestService.apply(request));
+        return ResponseEntity.ok(com.jamipariseva.common.ApiResponse.ok("Service request saved", serviceRequestService.apply(request)));
     }
 
     @Operation(summary = "Get request status or list")
@@ -91,8 +92,8 @@ public class ServiceRequestController {
                     """)))
     })
     @PostMapping("/request")
-    public com.jamipariseva.common.ApiResponse<?> getRequests(@Valid @RequestBody RequestStatusRequest request) {
-        return com.jamipariseva.common.ApiResponse.ok(serviceRequestService.getRequests(request));
+    public ResponseEntity<?> getRequests(@Valid @RequestBody RequestStatusRequest request) {
+        return ResponseEntity.ok(com.jamipariseva.common.ApiResponse.ok(serviceRequestService.getRequests(request)));
     }
 
     @Operation(summary = "Get request acknowledgement details")
@@ -122,10 +123,10 @@ public class ServiceRequestController {
                     """)))
     })
     @PostMapping("/acknowledgement")
-    public com.jamipariseva.common.ApiResponse<Map<String, Object>> getAcknowledgement(
+    public ResponseEntity<?> getAcknowledgement(
             @Valid @RequestBody AcknowledgementRequest request) {
-        return com.jamipariseva.common.ApiResponse.ok(serviceRequestService.getAcknowledgement(
-                request.getCitizenId(), request.getRoleId(), request.getRequestId()));
+        return ResponseEntity.ok(com.jamipariseva.common.ApiResponse.ok(serviceRequestService.getAcknowledgement(
+                request.getCitizenId(), request.getRoleId(), request.getRequestId())));
     }
 
     @Operation(summary = "Get PDF download URL for a request")
@@ -155,9 +156,9 @@ public class ServiceRequestController {
                     """)))
     })
     @PostMapping("/download")
-    public com.jamipariseva.common.ApiResponse<Map<String, Object>> getDownloadUrl(
+    public ResponseEntity<?> getDownloadUrl(
             @Valid @RequestBody DownloadRequest request) {
-        return com.jamipariseva.common.ApiResponse.ok(serviceRequestService.getDownloadUrl(
-                request.getServiceId(), request.getCitizenId(), request.getRoleId(), request.getRequestId()));
+        return ResponseEntity.ok(com.jamipariseva.common.ApiResponse.ok(serviceRequestService.getDownloadUrl(
+                request.getServiceId(), request.getCitizenId(), request.getRoleId(), request.getRequestId())));
     }
 }
