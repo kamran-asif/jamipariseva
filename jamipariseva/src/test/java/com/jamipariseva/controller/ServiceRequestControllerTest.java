@@ -32,29 +32,29 @@ class ServiceRequestControllerTest {
     @Test
     void apply_returnsSuccess() throws Exception {
         when(serviceRequestService.apply(any())).thenReturn(
-                Map.of("request_id", "REQ123", "status", "pending"));
+                Map.of("request_id", 123456L, "status", "pending"));
 
-        mockMvc.perform(post("/api/apply/servicerequest")
+        mockMvc.perform(post("/api/servicerequest")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"citizen_id\":\"1\",\"role_id\":\"2\",\"service_id\":\"3\",\"payment_multiply_factor\":{},\"rorinfo\":{},\"applicantinfo\":{} }"))
+                        .content("{\"citizen_id\":\"1\",\"role_id\":\"2\",\"service_id\":\"3\",\"payment_multipy_factor\":{},\"rorinfo\":{},\"applicantinfo\":{} }"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success").value(true))
                 .andExpect(jsonPath("$.message").value("Service request saved"))
-                .andExpect(jsonPath("$.data.request_id").value("REQ123"))
+                .andExpect(jsonPath("$.data.request_id").value(123456))
                 .andExpect(jsonPath("$.data.status").value("pending"));
     }
 
     @Test
     void getRequests_returnsRequests() throws Exception {
         when(serviceRequestService.getRequests(any())).thenReturn(
-                List.of(Map.of("request_id", "REQ123", "status", "pending")));
+                List.of(Map.of("request_id", 123456L, "status", "pending")));
 
         mockMvc.perform(post("/api/request")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"citizen_id\":\"1\",\"role_id\":\"2\",\"request_for\":\"pending\"}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success").value(true))
-                .andExpect(jsonPath("$.data[0].request_id").value("REQ123"))
+                .andExpect(jsonPath("$.data[0].request_id").value(123456))
                 .andExpect(jsonPath("$.data[0].status").value("pending"));
     }
 
@@ -69,15 +69,15 @@ class ServiceRequestControllerTest {
 
     @Test
     void getAcknowledgement_returnsAcknowledgement() throws Exception {
-        when(serviceRequestService.getAcknowledgement(eq("1"), eq("2"), eq("REQ123"))).thenReturn(
-                Map.of("request_id", "REQ123", "acknowledgement_no", "ACK-123"));
+        when(serviceRequestService.getAcknowledgement(eq("1"), eq("2"), eq(123456L))).thenReturn(
+                Map.of("request_id", 123456L, "acknowledgement_no", "ACK-123"));
 
         mockMvc.perform(post("/api/acknowledgement")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"citizen_id\":\"1\",\"role_id\":\"2\",\"request_id\":\"REQ123\"}"))
+                        .content("{\"citizen_id\":\"1\",\"role_id\":\"2\",\"request_id\":\"123456\"}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success").value(true))
-                .andExpect(jsonPath("$.data.request_id").value("REQ123"))
+                .andExpect(jsonPath("$.data.request_id").value(123456))
                 .andExpect(jsonPath("$.data.acknowledgement_no").value("ACK-123"));
     }
 
@@ -92,17 +92,18 @@ class ServiceRequestControllerTest {
 
     @Test
     void getDownloadUrl_returnsDownloadUrl() throws Exception {
-        when(serviceRequestService.getDownloadUrl(eq("3"), eq("1"), eq("2"), eq("REQ123"))).thenReturn(
-                Map.of("request_id", "REQ123", "pdf_url", "http://example.com/pdf"));
+        when(serviceRequestService.getDownloadUrl(eq("3"), eq("1"), eq("2"), eq(123456L))).thenReturn(
+                Map.of("request_id", 123456L, "pdf_url", "http://example.com/pdf"));
 
         mockMvc.perform(post("/api/download")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"service_id\":\"3\",\"citizen_id\":\"1\",\"role_id\":\"2\",\"request_id\":\"REQ123\"}"))
+                        .content("{\"service_id\":\"3\",\"citizen_id\":\"1\",\"role_id\":\"2\",\"request_id\":\"123456\"}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success").value(true))
-                .andExpect(jsonPath("$.data.request_id").value("REQ123"))
+                .andExpect(jsonPath("$.data.request_id").value(123456))
                 .andExpect(jsonPath("$.data.pdf_url").value("http://example.com/pdf"));
     }
+
 
     @Test
     void getDownloadUrl_missingFields_returnsBadRequest() throws Exception {

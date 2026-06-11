@@ -20,6 +20,7 @@ public class ServiceCatalogService {
                         .serviceName(s.getServiceName())
                         .serviceNameBn(s.getServiceNameBn())
                         .feeAmount(s.getFeeAmount())
+                        .servicePath(s.getServicePath())
                         .build())
                 .toList();
     }

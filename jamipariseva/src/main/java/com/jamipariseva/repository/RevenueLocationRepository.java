@@ -9,42 +9,42 @@ import org.springframework.data.repository.query.Param;
 public interface RevenueLocationRepository extends JpaRepository<RevenueLocationEntity, Long> {
 
     @Query("""
-            SELECT DISTINCT r.lgdDistCode AS code, r.distNameEng AS nameEng
+            SELECT DISTINCT r.district AS code, r.districtName AS nameEng
             FROM RevenueLocationEntity r
-            WHERE r.lgdDistCode IS NOT NULL
-            ORDER BY r.distNameEng
+            WHERE r.district IS NOT NULL
+            ORDER BY r.districtName
             """)
     List<LocationProjection> getDistricts();
 
     @Query("""
-            SELECT DISTINCT r.lgdSubdivCode AS code, r.subdivNameEng AS nameEng
+            SELECT DISTINCT r.subDivision AS code, r.subdivisionName AS nameEng
             FROM RevenueLocationEntity r
-            WHERE r.lgdDistCode = :distCode AND r.lgdSubdivCode IS NOT NULL
-            ORDER BY r.subdivNameEng
+            WHERE r.district = :distCode AND r.subDivision IS NOT NULL
+            ORDER BY r.subdivisionName
             """)
     List<LocationProjection> getSubDivisions(@Param("distCode") String distCode);
 
     @Query("""
-            SELECT DISTINCT r.lgdCircleCode AS code, r.rsnameEng AS nameEng
+            SELECT DISTINCT r.revenueCircle AS code, r.revCircleName AS nameEng
             FROM RevenueLocationEntity r
-            WHERE r.lgdSubdivCode = :subdivCode AND r.lgdCircleCode IS NOT NULL
-            ORDER BY r.rsnameEng
+            WHERE r.subDivision = :subdivCode AND r.revenueCircle IS NOT NULL
+            ORDER BY r.revCircleName
             """)
     List<LocationProjection> getCircles(@Param("subdivCode") String subdivCode);
 
     @Query("""
-            SELECT DISTINCT r.lgdTehsilCode AS code, r.tnameEng AS nameEng
+            SELECT DISTINCT r.tehsil AS code, r.tehsilName AS nameEng
             FROM RevenueLocationEntity r
-            WHERE r.lgdCircleCode = :circleCode AND r.lgdTehsilCode IS NOT NULL
-            ORDER BY r.tnameEng
+            WHERE r.revenueCircle = :circleCode AND r.tehsil IS NOT NULL
+            ORDER BY r.tehsilName
             """)
     List<LocationProjection> getTehsils(@Param("circleCode") String circleCode);
 
     @Query("""
-            SELECT DISTINCT r.lgdVillageCode AS code, r.mounameEng AS nameEng
+            SELECT DISTINCT r.revenueMouza AS code, r.moujaName AS nameEng
             FROM RevenueLocationEntity r
-            WHERE r.lgdTehsilCode = :tehsilCode AND r.lgdVillageCode IS NOT NULL
-            ORDER BY r.mounameEng
+            WHERE r.tehsil = :tehsilCode AND r.revenueMouza IS NOT NULL
+            ORDER BY r.moujaName
             """)
     List<LocationProjection> getVillages(@Param("tehsilCode") String tehsilCode);
 }

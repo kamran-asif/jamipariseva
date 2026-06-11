@@ -59,10 +59,11 @@ public class ServiceRequestController {
                     }
                     """)))
     })
-    @PostMapping("/apply/servicerequest")
+    @PostMapping("/servicerequest")
     public ResponseEntity<?> apply(
             @Valid @RequestBody ApplyServiceRequestDto request) {
-        return ResponseEntity.ok(com.jamipariseva.common.ApiResponse.ok("Service request saved", serviceRequestService.apply(request)));
+        return ResponseEntity.ok(
+                com.jamipariseva.common.ApiResponse.ok("Service request saved", serviceRequestService.apply(request)));
     }
 
     @Operation(summary = "Get request status or list")

@@ -18,7 +18,7 @@ public class ServiceRequestEntity {
 
     @Id
     @Column(name = "request_id")
-    private String requestId;
+    private Long requestId;
 
     @Column(name = "citizen_id")
     private String citizenId;

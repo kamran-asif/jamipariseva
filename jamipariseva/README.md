@@ -14,7 +14,7 @@ http://localhost:8081/jamipariseva/api
 |--------|------|---------|
 | POST | `/location` | Revenue hierarchy (district → village) |
 | POST | `/getservices` | Service list for citizen/role |
-| POST | `/apply/servicerequest` | Save service request |
+| POST | `/servicerequest` | Save service request |
 | POST | `/ror/verify` | Verify RoR (owner / khatian / plot) |
 | POST | `/acknowledgement` | Acknowledgement details |
 | POST | `/download` | PDF URL (success requests only) |

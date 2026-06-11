@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ServiceRequestRepository extends JpaRepository<ServiceRequestEntity, String> {
+public interface ServiceRequestRepository extends JpaRepository<ServiceRequestEntity, Long> {
 
     List<ServiceRequestEntity> findByCitizenIdAndRoleIdAndStatusOrderByCreatedAtDesc(
             String citizenId, String roleId, String status);
 
     Optional<ServiceRequestEntity> findByRequestIdAndCitizenIdAndRoleId(
-            String requestId, String citizenId, String roleId);
+            Long requestId, String citizenId, String roleId);
 }

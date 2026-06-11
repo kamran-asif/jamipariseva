@@ -44,11 +44,11 @@ public class RorVerifyService {
                         request.getLgdVillageCode(), request.getPlotNo());
             }
             case "owner_name" -> {
-                if (!StringUtils.hasText(request.getSfname()) || !StringUtils.hasText(request.getSlname())) {
-                    throw new BadRequestException("sfname and slname are required when search_by is owner_name");
+                if (!StringUtils.hasText(request.getOwnerName())) {
+                    throw new BadRequestException("owner_name is required when search_by is owner_name");
                 }
-                yield rorRecordRepository.findByLgdVillageCodeAndSfnameAndSlname(
-                        request.getLgdVillageCode(), request.getSfname(), request.getSlname());
+                yield rorRecordRepository.findByLgdVillageCodeAndOwnerNameIgnoreCase(
+                        request.getLgdVillageCode(), request.getOwnerName());
             }
             default -> throw new BadRequestException("Invalid search_by. Use: owner_name, khatian, plot");
         };

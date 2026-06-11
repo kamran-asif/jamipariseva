@@ -10,6 +10,6 @@ public interface RorRecordRepository extends JpaRepository<RorRecordEntity, Long
 
     Optional<RorRecordEntity> findByLgdVillageCodeAndPlotNo(String lgdVillageCode, String plotNo);
 
-    Optional<RorRecordEntity> findByLgdVillageCodeAndSfnameAndSlname(
-            String lgdVillageCode, String sfname, String slname);
+    Optional<RorRecordEntity> findByLgdVillageCodeAndOwnerNameIgnoreCase(
+            String lgdVillageCode, String ownerName);
 }

@@ -19,4 +19,7 @@ public class ServiceItemDto {
 
     @JsonProperty("fee_amount")
     private Double feeAmount;
+
+    @JsonProperty("service_path")
+    private String servicePath;
 }

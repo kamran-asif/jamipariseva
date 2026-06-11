@@ -33,7 +33,7 @@ public class ServiceRequestService {
             throw new BadRequestException("Invalid or inactive service_id: " + dto.getServiceId());
         }
         try {
-            String requestId = "REQ" + UUID.randomUUID().toString().replace("-", "").substring(0, 12).toUpperCase();
+            Long requestId = java.util.concurrent.ThreadLocalRandom.current().nextLong(100000000000L, 999999999999L);
             ServiceRequestEntity entity = new ServiceRequestEntity();
             entity.setRequestId(requestId);
             entity.setCitizenId(dto.getCitizenId());
@@ -57,14 +57,11 @@ public class ServiceRequestService {
 
     public Object getRequests(RequestStatusRequest request) {
         String status = normalizeStatus(request.getRequestFor());
-        if (StringUtils.hasText(request.getRequestId())) {
+        if (request.getRequestId() != null) {
             ServiceRequestEntity entity = serviceRequestRepository
                     .findByRequestIdAndCitizenIdAndRoleId(
                             request.getRequestId(), request.getCitizenId(), request.getRoleId())
                     .orElseThrow(() -> new ResourceNotFoundException("Request not found"));
-            if (!status.equalsIgnoreCase(entity.getStatus())) {
-                throw new ResourceNotFoundException("Request not found for status: " + request.getRequestFor());
-            }
             return toDetailMap(entity);
         }
         return serviceRequestRepository
@@ -75,7 +72,7 @@ public class ServiceRequestService {
                 .toList();
     }
 
-    public Map<String, Object> getAcknowledgement(String citizenId, String roleId, String requestId) {
+    public Map<String, Object> getAcknowledgement(String citizenId, String roleId, Long requestId) {
         ServiceRequestEntity entity = findRequest(citizenId, roleId, requestId);
         Map<String, Object> ack = new HashMap<>();
         ack.put("request_id", entity.getRequestId());
@@ -87,7 +84,7 @@ public class ServiceRequestService {
         return ack;
     }
 
-    public Map<String, Object> getDownloadUrl(String serviceId, String citizenId, String roleId, String requestId) {
+    public Map<String, Object> getDownloadUrl(String serviceId, String citizenId, String roleId, Long requestId) {
         ServiceRequestEntity entity = findRequest(citizenId, roleId, requestId);
         if (!serviceId.equals(entity.getServiceId())) {
             throw new BadRequestException("service_id does not match the request");
@@ -111,7 +108,7 @@ public class ServiceRequestService {
 
 
 
-    private ServiceRequestEntity findRequest(String citizenId, String roleId, String requestId) {
+    private ServiceRequestEntity findRequest(String citizenId, String roleId, Long requestId) {
         return serviceRequestRepository
                 .findByRequestIdAndCitizenIdAndRoleId(requestId, citizenId, roleId)
                 .orElseThrow(() -> new ResourceNotFoundException("Request not found"));

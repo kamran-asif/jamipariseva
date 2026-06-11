@@ -31,4 +31,7 @@ public class ServiceMasterEntity {
 
     @Column(name = "role_id")
     private String roleId;
+
+    @Column(name = "service_path")
+    private String servicePath;
 }

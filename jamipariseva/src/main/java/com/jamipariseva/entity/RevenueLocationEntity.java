@@ -23,33 +23,36 @@ public class RevenueLocationEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "lgd_dist_code")
-    private String lgdDistCode;
+    @Column(name = "idn")
+    private String idn;
+
+    @Column(name = "lgd_district_code")
+    private String district;
 
     @Column(name = "dist_name_eng")
-    private String distNameEng;
+    private String districtName;
 
     @Column(name = "lgd_subdiv_code")
-    private String lgdSubdivCode;
+    private String subDivision;
 
     @Column(name = "subdiv_name_eng")
-    private String subdivNameEng;
+    private String subdivisionName;
 
     @Column(name = "lgd_circle_code")
-    private String lgdCircleCode;
+    private String revenueCircle;
 
     @Column(name = "rsname_eng")
-    private String rsnameEng;
+    private String revCircleName;
 
     @Column(name = "lgd_tehsil_code")
-    private String lgdTehsilCode;
+    private String tehsil;
 
     @Column(name = "tname_eng")
-    private String tnameEng;
+    private String tehsilName;
 
     @Column(name = "lgd_village_code")
-    private String lgdVillageCode;
+    private String revenueMouza;
 
     @Column(name = "mouname_eng")
-    private String mounameEng;
+    private String moujaName;
 }
