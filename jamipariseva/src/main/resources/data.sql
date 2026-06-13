@@ -5,12 +5,12 @@ DELETE FROM ror_record;
 DELETE FROM revenue_location_master;
 DELETE FROM service_master;
 
-INSERT INTO service_master (service_id, service_name, service_name_bn, fee_amount, is_active, role_id, service_path) VALUES
-('12', 'Certified copy of Surveyed Khatian', 'জরিপকৃত খতিয়ানের প্রমাণিত অনুলিপি', 50.0, true, '6', '/dashboard/khatian-search'),
-('13', 'Payment of Land Revenue', 'ভূমি রাজস্ব প্রদান', 0.0, true, '6', 'disabled'),
-('10', 'Certified Copy of ROR', 'রেকর্ড অব রাইটসের প্রমাণিত অনুলিপি', 50.0, true, '6', 'disabled'),
-('11', 'Land Map Preview', 'ভূমি ম্যাপ প্রিভিউ', 30.0, true, '6', 'disabled'),
-('14', 'RCCMS', 'আরসিসিএমএস', 0.0, true, '6', 'disabled');
+INSERT INTO service_master (service_id, service_name, description, fee_amount, is_active, role_id, service_path) VALUES
+('12', 'Certified copy of Surveyed Khatian', 'Get a certified copy of surveyed land records (Khatian)', 50.0, true, '6', '/dashboard/khatian-search'),
+('13', 'Payment of Land Revenue', 'Pay land taxes and revenue online securely', 0.0, true, '6', 'disabled'),
+('10', 'Certified Copy of ROR', 'Apply for a certified copy of Record of Rights (ROR)', 50.0, true, '6', 'disabled'),
+('11', 'Land Map Preview', 'View and preview spatial cadastral land maps', 30.0, true, '6', 'disabled'),
+('14', 'RCCMS', 'Revenue Court Case Management System for court cases', 0.0, true, '6', 'disabled');
 
 
 INSERT INTO revenue_location_master

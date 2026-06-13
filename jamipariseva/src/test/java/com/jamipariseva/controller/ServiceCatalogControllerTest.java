@@ -35,14 +35,14 @@ class ServiceCatalogControllerTest {
                         ServiceItemDto.builder()
                                 .serviceId("12")
                                 .serviceName("Certified copy of Surveyed Khatian")
-                                .serviceNameBn("জরিপকৃত খতিয়ানের প্রমাণিত অনুলিপি")
+                                .description("Get a certified copy of surveyed land records")
                                 .feeAmount(50.0)
                                 .servicePath("/dashboard/khatian-search")
                                 .build(),
                         ServiceItemDto.builder()
                                 .serviceId("13")
                                 .serviceName("Payment of Land Revenue")
-                                .serviceNameBn("ভূমি রাজস্ব প্রদান")
+                                .description("Pay land taxes and revenue online securely")
                                 .feeAmount(0.0)
                                 .servicePath("disabled")
                                 .build()
@@ -56,9 +56,11 @@ class ServiceCatalogControllerTest {
                 .andExpect(jsonPath("$.success").value(true))
                 .andExpect(jsonPath("$.data[0].service_id").value("12"))
                 .andExpect(jsonPath("$.data[0].service_name").value("Certified copy of Surveyed Khatian"))
+                .andExpect(jsonPath("$.data[0].description").value("Get a certified copy of surveyed land records"))
                 .andExpect(jsonPath("$.data[0].service_path").value("/dashboard/khatian-search"))
                 .andExpect(jsonPath("$.data[1].service_id").value("13"))
                 .andExpect(jsonPath("$.data[1].service_name").value("Payment of Land Revenue"))
+                .andExpect(jsonPath("$.data[1].description").value("Pay land taxes and revenue online securely"))
                 .andExpect(jsonPath("$.data[1].service_path").value("disabled"));
     }
 

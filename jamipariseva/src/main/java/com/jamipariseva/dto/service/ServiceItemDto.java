@@ -14,8 +14,8 @@ public class ServiceItemDto {
     @JsonProperty("service_name")
     private String serviceName;
 
-    @JsonProperty("service_name_bn")
-    private String serviceNameBn;
+    @JsonProperty("description")
+    private String description;
 
     @JsonProperty("fee_amount")
     private Double feeAmount;

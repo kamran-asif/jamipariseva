@@ -18,7 +18,7 @@ public class ServiceCatalogService {
                 .map(s -> ServiceItemDto.builder()
                         .serviceId(s.getServiceId())
                         .serviceName(s.getServiceName())
-                        .serviceNameBn(s.getServiceNameBn())
+                        .description(s.getDescription())
                         .feeAmount(s.getFeeAmount())
                         .servicePath(s.getServicePath())
                         .build())

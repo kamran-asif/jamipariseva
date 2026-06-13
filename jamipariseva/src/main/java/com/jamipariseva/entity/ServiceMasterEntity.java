@@ -20,8 +20,8 @@ public class ServiceMasterEntity {
     @Column(name = "service_name")
     private String serviceName;
 
-    @Column(name = "service_name_bn")
-    private String serviceNameBn;
+    @Column(name = "description")
+    private String description;
 
     @Column(name = "fee_amount")
     private Double feeAmount;
