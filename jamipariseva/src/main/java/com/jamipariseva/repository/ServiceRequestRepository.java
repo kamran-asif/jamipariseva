@@ -10,6 +10,9 @@ public interface ServiceRequestRepository extends JpaRepository<ServiceRequestEn
     List<ServiceRequestEntity> findByCitizenIdAndRoleIdAndStatusOrderByCreatedAtDesc(
             String citizenId, String roleId, String status);
 
+    List<ServiceRequestEntity> findByCitizenIdAndRoleIdOrderByCreatedAtDesc(
+            String citizenId, String roleId);
+
     Optional<ServiceRequestEntity> findByRequestIdAndCitizenIdAndRoleId(
             Long requestId, String citizenId, String roleId);
 }

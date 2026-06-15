@@ -23,6 +23,7 @@ public class ServiceRequestService {
 
     private static final String STATUS_PENDING = "pending";
     private static final String STATUS_SUCCESS = "success";
+    private static final String STATUS_LIST = "list";
 
     private final ServiceRequestRepository serviceRequestRepository;
     private final ServiceMasterRepository serviceMasterRepository;
@@ -63,6 +64,14 @@ public class ServiceRequestService {
                             request.getRequestId(), request.getCitizenId(), request.getRoleId())
                     .orElseThrow(() -> new ResourceNotFoundException("Request not found"));
             return toDetailMap(entity);
+        }
+        if (STATUS_LIST.equals(status)) {
+            return serviceRequestRepository
+                    .findByCitizenIdAndRoleIdOrderByCreatedAtDesc(
+                            request.getCitizenId(), request.getRoleId())
+                    .stream()
+                    .map(this::toSummaryMap)
+                    .toList();
         }
         return serviceRequestRepository
                 .findByCitizenIdAndRoleIdAndStatusOrderByCreatedAtDesc(
@@ -116,8 +125,8 @@ public class ServiceRequestService {
 
     private String normalizeStatus(String requestFor) {
         String value = requestFor.trim().toLowerCase();
-        if (!STATUS_PENDING.equals(value) && !STATUS_SUCCESS.equals(value)) {
-            throw new BadRequestException("request_for must be pending or success");
+        if (!STATUS_PENDING.equals(value) && !STATUS_SUCCESS.equals(value) && !STATUS_LIST.equals(value)) {
+            throw new BadRequestException("request_for must be pending, success, or list");
         }
         return value;
     }

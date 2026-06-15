@@ -59,6 +59,42 @@ class ServiceRequestControllerTest {
     }
 
     @Test
+    void getRequests_withPendingIdAlias_returnsRequests() throws Exception {
+        org.mockito.ArgumentCaptor<com.jamipariseva.dto.request.RequestStatusRequest> captor = org.mockito.ArgumentCaptor.forClass(com.jamipariseva.dto.request.RequestStatusRequest.class);
+        when(serviceRequestService.getRequests(captor.capture())).thenReturn(
+                Map.of("request_id", 123456L, "status", "pending"));
+
+        mockMvc.perform(post("/api/request")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"citizen_id\":\"1\",\"role_id\":\"2\",\"request_for\":\"pending\",\"pending_id\":\"123456\"}"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.success").value(true))
+                .andExpect(jsonPath("$.data.request_id").value(123456))
+                .andExpect(jsonPath("$.data.status").value("pending"));
+
+        org.junit.jupiter.api.Assertions.assertEquals(123456L, captor.getValue().getRequestId());
+    }
+
+    @Test
+    void getRequests_withList_returnsAllRequests() throws Exception {
+        when(serviceRequestService.getRequests(any())).thenReturn(
+                List.of(
+                        Map.of("request_id", 123456L, "status", "pending"),
+                        Map.of("request_id", 789012L, "status", "success")
+                ));
+
+        mockMvc.perform(post("/api/request")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"citizen_id\":\"1\",\"role_id\":\"2\",\"request_for\":\"list\"}"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.success").value(true))
+                .andExpect(jsonPath("$.data[0].request_id").value(123456))
+                .andExpect(jsonPath("$.data[0].status").value("pending"))
+                .andExpect(jsonPath("$.data[1].request_id").value(789012))
+                .andExpect(jsonPath("$.data[1].status").value("success"));
+    }
+
+    @Test
     void getRequests_missingFields_returnsBadRequest() throws Exception {
         mockMvc.perform(post("/api/request")
                         .contentType(MediaType.APPLICATION_JSON)

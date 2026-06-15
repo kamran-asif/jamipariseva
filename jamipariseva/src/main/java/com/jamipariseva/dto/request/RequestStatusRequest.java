@@ -1,5 +1,6 @@
 package com.jamipariseva.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
@@ -21,10 +22,11 @@ public class RequestStatusRequest {
 
     @NotBlank
     @JsonProperty("request_for")
-    @Schema(description = "Request status filter (pending or success)", example = "success")
+    @Schema(description = "Request status filter (pending, success, or list)", example = "success")
     private String requestFor;
 
     @JsonProperty("request_id")
+    @JsonAlias("pending_id")
     @Schema(description = "Optional Request ID", example = "850946")
     private Long requestId;
 }

@@ -72,7 +72,7 @@ public class ServiceRequestController {
             @ApiResponse(responseCode = "400", description = "Invalid request/body format", content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.jamipariseva.common.ApiResponse.class), examples = @ExampleObject(value = """
                     {
                       "success": false,
-                      "message": "request_for must be pending or success",
+                      "message": "request_for must be pending, success, or list",
                       "httpCodes": {
                         "400 Bad Request": "Invalid request/body format",
                         "500 Internal Server Error": "Generic server error"
